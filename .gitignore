@@ -3,6 +3,11 @@
 /.idea/workspace.xml
 .DS_Store
 /build
+*.iml
+target/
+.idea/
+*~
+
 # Built application files
 *.apk
 *.ap_
