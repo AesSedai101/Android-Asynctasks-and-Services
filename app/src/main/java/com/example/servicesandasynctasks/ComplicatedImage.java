@@ -26,7 +26,7 @@ public class ComplicatedImage extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Canvas c = holder.lockCanvas();
-        onDraw(c);
+        draw(c);
         holder.unlockCanvasAndPost(c);
     }
 
@@ -45,4 +45,12 @@ public class ComplicatedImage extends SurfaceView implements SurfaceHolder.Callb
         canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(bmp, SIZE, SIZE, null);
     }
+
+    public void setPixelColour(int x, int y, int color) {
+        bmp.setPixel(x, y, color);
+        Canvas c = holder.lockCanvas();
+        draw(c);
+        holder.unlockCanvasAndPost(c);
+    }
+
 }
