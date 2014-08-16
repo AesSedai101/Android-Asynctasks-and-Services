@@ -55,6 +55,16 @@
                         <versionName>${project.version}</versionName>
                     </manifest>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>install</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
