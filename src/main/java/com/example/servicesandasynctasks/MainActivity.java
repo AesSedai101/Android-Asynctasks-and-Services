@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.servicesandasynctasks.asynctask.ImageAsyncTask;
 import com.example.servicesandasynctasks.calculator.ImageCalculator;
 import com.example.servicesandasynctasks.calculator.ImageCallback;
 import com.example.servicesandasynctasks.calculator.RandomImageCalculator;
@@ -26,8 +27,10 @@ public class MainActivity extends Activity implements ImageCallback {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("DIMENS", image.getWidthValue() + " " + image.getHeightValue());
-                calculator.calculateImage(image.getWidth(), image.getHeight(), MainActivity.this);
+                /*Log.d("DIMENS", image.getWidthValue() + " " + image.getHeightValue());
+                drawImage(calculator.calculateImage(image.getWidthValue(), image.getHeightValue()));*/
+                ImageAsyncTask asyncTask = new ImageAsyncTask(image.getWidthValue(), image.getHeightValue(), MainActivity.this);
+                asyncTask.execute(calculator);
             }
         });
     }
@@ -39,6 +42,7 @@ public class MainActivity extends Activity implements ImageCallback {
 
     @Override
     public void drawImage(Bitmap bitmap) {
+        Log.d("SETTING", "setting " + bitmap);
         image.setImage(bitmap);
     }
 }

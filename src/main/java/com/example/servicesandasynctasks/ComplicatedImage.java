@@ -49,6 +49,7 @@ public class ComplicatedImage extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        Log.d("DRAWING", "on " + bmp);
         if (bmp != null) {
             canvas.drawColor(Color.WHITE);
             Paint paint = new Paint();
@@ -69,6 +70,8 @@ public class ComplicatedImage extends View {
 
     public void setImage(Bitmap bitmap) {
         bmp = bitmap;
+        Log.d("NEW BITMAP", ":" + bitmap);
+        postInvalidate();
         refreshDrawableState();
     }
 }

@@ -11,7 +11,7 @@ import com.example.servicesandasynctasks.MainActivity;
 public abstract class ImageCalculator {
     public abstract int calculateColour(int x, int y);
 
-    public void calculateImage(int width, int height, ImageCallback callback) {
+    public Bitmap calculateImage(int width, int height) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -19,6 +19,6 @@ public abstract class ImageCalculator {
                 bitmap.setPixel(i,j,calculateColour(i,j));
             }
         }
-        callback.drawImage(bitmap);
+        return bitmap;
     }
 }
