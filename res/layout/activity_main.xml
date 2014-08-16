@@ -10,14 +10,26 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/draw"
-        android:text="Start drawing"
+        android:id="@+id/drawMain"
+        android:text="Start drawing (main thread)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/drawAsync"
+        android:text="Start drawing (asynctask)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/drawService"
+        android:text="Start drawing (service)"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <com.example.servicesandasynctasks.ComplicatedImage
-        android:layout_height="200dp"
-        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
         android:id="@+id/image"
         />
 

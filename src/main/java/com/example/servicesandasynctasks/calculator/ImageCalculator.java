@@ -5,10 +5,12 @@ import android.util.Log;
 
 import com.example.servicesandasynctasks.MainActivity;
 
+import java.io.Serializable;
+
 /**
  * Created by elsabe.ros on 2014/08/16.
  */
-public abstract class ImageCalculator {
+public abstract class ImageCalculator implements Serializable {
     public abstract int calculateColour(int x, int y);
 
     public Bitmap calculateImage(int width, int height) {
