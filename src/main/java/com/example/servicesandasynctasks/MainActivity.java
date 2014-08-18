@@ -90,6 +90,7 @@ public class MainActivity extends Activity implements ImageCallback {
     private void bindAndGetImage() {
         Log.d("MAIN", "Binding");
         Intent intent = new Intent(this, ImageService.class);
+        //Don't do this here in a real app
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
