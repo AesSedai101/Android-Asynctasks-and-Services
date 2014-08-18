@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class MainActivity extends Activity implements ImageCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         image = (ComplicatedImage) findViewById(R.id.image);
+
         Button drawMain = (Button) findViewById(R.id.drawMain);
         drawMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +50,7 @@ public class MainActivity extends Activity implements ImageCallback {
             }
         });
 
+        registerReceiver(new Receiver(), new IntentFilter(ImageService.IMAGE_READY));
         Button drawService = (Button) findViewById(R.id.drawService);
         drawService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +80,7 @@ public class MainActivity extends Activity implements ImageCallback {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("MAIN", "Received " + intent.getAction());
             if (intent.getAction().equals(ImageService.IMAGE_READY)) {
                 bindAndGetImage();
             }
@@ -84,6 +88,7 @@ public class MainActivity extends Activity implements ImageCallback {
     }
 
     private void bindAndGetImage() {
+        Log.d("MAIN", "Binding");
         Intent intent = new Intent(this, ImageService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
@@ -91,6 +96,7 @@ public class MainActivity extends Activity implements ImageCallback {
     ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            Log.d("BINDER", "onServiceConnected");
             ImageService.MyBinder binder = (ImageService.MyBinder) iBinder;
             Bitmap bmp = binder.getService().getBitmap();
             drawImage(bmp);

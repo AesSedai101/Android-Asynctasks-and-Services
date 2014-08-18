@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.NinePatch;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.example.servicesandasynctasks.asynctask.ImageAsyncTask;
 import com.example.servicesandasynctasks.calculator.ImageCalculator;
@@ -25,12 +26,15 @@ public class ImageService extends Service implements ImageCallback {
         int h = intent.getIntExtra("height", 0);
         ImageCalculator calculator = (ImageCalculator) intent.getSerializableExtra("calc");
 
+        Log.d("SERVICE", "Calculating " + w+ " " + h + " using " + calculator);
+
         if (bitmap == null) {
             ImageAsyncTask asyncTask = new ImageAsyncTask(w, h, this);
             asyncTask.execute(calculator);
         }else {
             drawImage(bitmap);
         }
+
         return START_STICKY;
     }
 
@@ -41,6 +45,7 @@ public class ImageService extends Service implements ImageCallback {
 
     @Override
     public void drawImage(Bitmap bitmap) {
+        Log.d("SERVICE drawImage", "Broadcasting " + bitmap);
         this.bitmap = bitmap;
         Intent intent = new Intent(IMAGE_READY);
         sendBroadcast(intent);
@@ -50,7 +55,7 @@ public class ImageService extends Service implements ImageCallback {
         return bitmap;
     }
 
-    public  class MyBinder extends Binder {
+    public class MyBinder extends Binder {
         private final ImageService service;
 
         public MyBinder(ImageService imageService) {
